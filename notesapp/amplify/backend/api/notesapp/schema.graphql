@@ -2,8 +2,13 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Todo @model {
+type Note @model {
   id: ID!
+  clientId: ID
   name: String!
   description: String
+  completed: Boolean
 }
+
+# 해당 스키마에는 5개의 필드가 포함된 Note 타입을 정의함.
+# null이 불가능한 필수 항목은 끝에 !를 넣어 지정할 수 있다.
