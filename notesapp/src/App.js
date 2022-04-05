@@ -4,7 +4,8 @@ import { List, Input, Button } from 'antd'; // 리스트를 렌더링할 Ant Des
 import 'antd/dist/antd.min.css';
 import { listNotes } from './graphql/queries'; // 노트 리스트를 가져오는 그래프QL 쿼리 작업.
 import { v4 as uuid } from 'uuid';
-import { createNote as CreateNote } from './graphql/mutations';
+import { createNote as CreateNote, deleteNote as DeleteNote, updateNote as UpdateNote } from './graphql/mutations';
+import { onCreateNote } from './graphql/subscriptions';
 const CLIENT_ID = uuid()
 
 //상태
@@ -67,13 +68,55 @@ export default function App() {
     }
   }
 
+  async function deleteNote({ id }) {
+    const index = state.notes.findIndex(n => n.id === id)
+    const notes = [
+      ...state.notes.slice(0, index),
+      ...state.notes.slice(index + 1)
+    ]
+    dispatch({ type: 'SET_NOTES', notes })
+    try {
+      await API.graphql({
+        query: DeleteNote,
+        variables: { input: { id } }
+      })
+      console.log('successfully deleted note!')
+    } catch (err) {
+      console.log({ err })
+    }
+  }
+
+  async function updateNote(note) {
+    const index = state.notes.findIndex(n => n.id === note.id)
+    const notes = [...state.notes]
+    notes[index].completed = !note.completed
+    dispatch({ type: 'SET_NOTES', notes })
+    try {
+      await API.graphql({
+        query: UpdateNote,
+        variables: { input: { id: note.id, completed: notes[index].completed } }
+      })
+      console.log('note successfully updated!')
+    } catch (err) {
+      console.log('error: ', err)
+    }
+  }
+
   function onChange(e) {
     dispatch({ type: 'SET_INPUT', name: e.target.name, value: e.target.value })
   }
 
   function renderItem(item) {
     return (
-      <List.Item style={styles.item}>
+      <List.Item 
+        style={styles.item}
+        actions={[
+          <p style={styles.p} onClick={() => deleteNote(item)}>Delete</p>,
+          <p style={styles.p} onClick={() => updateNote(item)}>
+            {item.completed ? 'completed' : 'mark completed'}
+          </p>
+        ]}
+      >
         <List.Item.Meta
           title={item.name}
           description={item.description}
@@ -84,6 +127,16 @@ export default function App() {
 
   useEffect(() => {
     fetchNotes()
+    const subscription = API.graphql({
+      query: onCreateNote
+    }).subscribe({
+      next: noteData => {
+        const note = noteData.value.data.onCreateNote
+        if (CLIENT_ID === note.clientId) return
+        dispatch({ type: 'ADD_NOTE', note })
+      }
+    })
+    return () => subscription.unsubscribe()
   }, [])
 
   return (
