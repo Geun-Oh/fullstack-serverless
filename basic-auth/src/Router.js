@@ -1,7 +1,7 @@
 //라우터와 현재 경로 이름을 결정하는 몇 가지 로직이 있는 곳.
 
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import Nav from './Nav';
 import Public from './Public';
@@ -23,12 +23,12 @@ const Router = () => {
     return (
         <HashRouter>
             <Nav current={current} />
-            <Switch>
-                <Route exact path='/' component={Public} />
-                <Route exact path='/protected' component={Protected} />
-                <Route exact path='/profile' component={Profile} />
-                <Route component={Public} />
-            </Switch>
+            <Routes>
+                <Route path='/' exact element={<Public />} />
+                <Route path='/protected' exact element={<Protected />} />
+                <Route path='/profile' exact element={<Profile />} />
+                <Route element={<Public />} />
+            </Routes>
         </HashRouter>
     )
 }
