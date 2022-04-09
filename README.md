@@ -17,3 +17,5 @@ velog에 풀스택 서버리스에 대한 포스트 올림.
 ### 22.04.09
 
 제 5장에 대한 components 작성중... 사용자 인증을 직접  구현하는 파트이다.
+
+formState 변화에 직접적인 영향을 주는 components 작성 완료. updateForm 헬퍼 함수 작성해야함!
