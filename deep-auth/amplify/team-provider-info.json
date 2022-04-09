@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-deepauth-dev-101852-authRole",
+      "UnauthRoleArn": "arn:aws:iam::443726555577:role/amplify-deepauth-dev-101852-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::443726555577:role/amplify-deepauth-dev-101852-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-deepauth-dev-101852-deployment",
+      "UnauthRoleName": "amplify-deepauth-dev-101852-unauthRole",
+      "StackName": "amplify-deepauth-dev-101852",
+      "StackId": "arn:aws:cloudformation:us-east-1:443726555577:stack/amplify-deepauth-dev-101852/766d8070-b7ee-11ec-a4a3-0ec249610bb3",
+      "AmplifyAppId": "d2inx0aekseiqt"
+    }
+  }
+}

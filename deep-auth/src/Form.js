@@ -61,7 +61,7 @@ async function forgotPasswordSubmit ({ username, confirmationCode, password }, u
     }
 }
 
-const initialFromState = {
+const initialFormState = {
     username: '',
     password: '',
     email: '',
@@ -70,11 +70,88 @@ const initialFromState = {
 
 function Form (props) {
     const [formType, updateFormType] = useState('signIn')
-    const [formState, updateFormState] = useState(initialFromState)
-    function renderForm() {}
+    const [formState, updateFormState] = useState(initialFormState)
+
+    function updateForm (event) { // initialState에 핸들러에 입력된 단일 타겟 이벤트를 포함시키기 위해 입력된 값을 포함하는 새 객체를 선언 후 이를 업데이트.
+        const newFormState = {
+            ...formState, [event.target.name]: event.target.value
+        }
+        updateFormState(newFormState)
+    }
+
+    function renderForm() { // renderForm 함수는 현재 렌더링되는 양식을 나타내는 formType을 확인하고 적절한 양식을 렌더링한다.
+        switch (formType) {
+            case 'signUp':
+                return (
+                    <SignUp
+                        signUp={() => signUp(formState, updateFormType)}
+                        updateFormState={e => updateForm(e)}
+                    />
+                )
+            case 'comfirmSignUp':
+                return (
+                    <ConfirmSignUp
+                        confirmSignUp={() => confirmSignUp(formState, updateFormType)}
+                        updateFormState={e => updateForm(e)}
+                    />
+                )
+            case 'signIn':
+                return (
+                    <SignIp
+                        signIp={() => signIp(formState, props.setUser)}
+                        updateFormState={e => updateForm(e)}
+                    />
+                )
+            case 'forgotPassword':
+                return (
+                    <ForgotPassword
+                        forgotPassword={() => forgotPassword(formState, updateFormType)}
+                        updateFormState={e => updateForm(e)}
+                    />
+                )
+            case 'forgotPasswordSubmit':
+                return (
+                    <ForgotPasswordSubmit
+                        forgotPasswordSubmit={() => forgotPasswordSubmit(formState, updateFormType)}
+                        updateFormState={e => updateForm(e)}
+                    />
+                )
+            default:
+                return null
+        }
+    }
+
     return (
         <div>
             {renderForm()}
+            { // 사용자가 signUp, signIn, forgotPassword 페이지를 자유자재로 이동할 수 있도록 렌더링함!
+                formType === 'signUp' && (
+                    <p style={styles.toggleForm}>
+                        Already have an account? <span
+                            style={styles.anchor}
+                            onClick={() => updateFormType('signIn')}
+                        >Sign In</span>
+                    </p>
+                )
+            }
+            {
+                formType === 'signIn' && (
+                    <>
+                        <p style={styles.toggleForm}>
+                            Need an account? <span
+                                style={styles.anchor}
+                                onClick={() => updateFormType('signUp')}
+                            >Sign Up</span>
+                        </p>
+                        <p style={{ ...styles.toggleForm, ...styles.resetPassword }}>
+                            Forget your password? <span
+                                style={styles.anchor}
+                                onClick={() => updateFormType('forgotPassword')}
+                            >Reset password</span>
+                        </p>
+                    </>
+                )
+            }
         </div>
     )
 }
