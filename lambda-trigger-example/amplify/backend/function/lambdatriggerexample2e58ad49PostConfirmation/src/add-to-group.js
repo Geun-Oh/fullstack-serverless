@@ -1,16 +1,15 @@
 /**
  * 사용자가 adminEmails 배열에 지정되어 있는 관리자 중 하나인 경우 Admin이라는 그룹에 자동 배치되는 기능을 담당한다.
  */
-
 const aws = require('aws-sdk');
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event, context, callback) => { // lambda 함수가 호출되면 lambda가 해당 핸들러를 실행한다.
   const cognitoProvider = new aws.CognitoIdentityServiceProvider({
     apiVersion: '2016-04-18'
   })
 
   let isAdmin = false
-  const adminEmails = ['kandy1002@naver.com']
+  const adminEmails = ["kandy1002@naver.com"]
 
   // 사용자가 관리자 중 한 명이라면 isAdmin 변수를 true로 설정한다.
   if (adminEmails.indexOf(event.request.userAttributes.email) !== -1) {
@@ -20,14 +19,17 @@ exports.handler = async (event, context, callback) => {
   const groupParams = {
     UserPoolId: event.userPoolId
   };
+
   const userParams = {
     UserPoolId: event.userPoolId,
     Username: event.userName
   };
-  /**
-   *  그룹이 있는지 확인하고, 없으면 그룹을 생성한다.
-   */
+
   if (isAdmin) {
+    groupParams.GroupName = "Admin"
+    userParams.GroupName = "Admin"
+
+    //그룹이 있는지 확인하고, 없으면 그룹을 생성한다.
     try {
       await cognitoProvider.getGroup(groupParams).promise();
     } catch (e) {
