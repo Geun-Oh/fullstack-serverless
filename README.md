@@ -19,3 +19,6 @@ velog에 풀스택 서버리스에 대한 포스트 올림.
 제 5장에 대한 components 작성중... 사용자 인증을 직접  구현하는 파트이다.
 
 formState 변화에 직접적인 영향을 주는 components 작성 완료. updateForm 헬퍼 함수 작성해야함!
+
+chapter6 Lambda Trigger를 추가하는 과정에서 계속 isAdmin을 통한 관리자 이메일 인증이 되지 않는 이슈가 발생함.
+Lambda exports.handler에 대한 세부적인 공부를 진행한 뒤 exports.handler paramter로 전달되는 event에 대해 분석해보아야함...
