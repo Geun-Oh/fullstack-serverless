@@ -14,13 +14,18 @@
     },
     "categories": {
       "auth": {
-        "lambdatriggerexample2e58ad49": {}
+        "lambdatriggerexample2e58ad49": {},
+        "true": {}
       },
       "function": {
         "lambdatriggerexample2e58ad49PostConfirmation": {
           "GROUP": "Admin",
           "deploymentBucketName": "amplify-lambdatriggerexample-dev-110217-deployment",
-          "s3Key": "amplify-builds/lambdatriggerexample2e58ad49PostConfirmation-4376515332467a6f5861-build.zip"
+          "s3Key": "amplify-builds/lambdatriggerexample2e58ad49PostConfirmation-4c35526e6c6a51685875-build.zip"
+        },
+        "S3Trigger8bfbf280": {
+          "deploymentBucketName": "amplify-lambdatriggerexample-dev-110217-deployment",
+          "s3Key": "amplify-builds/S3Trigger8bfbf280-71304c6b595051737532-build.zip"
         }
       }
     }
