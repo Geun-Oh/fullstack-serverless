@@ -9,6 +9,7 @@ function Performance() {
     let { id } = useParams()
     useEffect(() => {
         fetchPerformanceInfo()
+        // eslint-disable-next-line
     }, [])
     async function fetchPerformanceInfo() {
         const talkInfo = await API.graphql({
