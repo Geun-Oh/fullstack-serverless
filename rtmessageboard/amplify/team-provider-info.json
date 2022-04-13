@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-rtmessageboard-dev-133120-authRole",
+      "UnauthRoleArn": "arn:aws:iam::443726555577:role/amplify-rtmessageboard-dev-133120-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::443726555577:role/amplify-rtmessageboard-dev-133120-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-rtmessageboard-dev-133120-deployment",
+      "UnauthRoleName": "amplify-rtmessageboard-dev-133120-unauthRole",
+      "StackName": "amplify-rtmessageboard-dev-133120",
+      "StackId": "arn:aws:cloudformation:us-east-1:443726555577:stack/amplify-rtmessageboard-dev-133120/0566b6b0-bb2e-11ec-b031-0e8bbe18c713",
+      "AmplifyAppId": "d32yq5ja6u0hiz"
+    }
+  }
+}
